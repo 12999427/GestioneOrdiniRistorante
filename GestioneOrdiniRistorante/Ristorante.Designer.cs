@@ -30,14 +30,19 @@
         {
             DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
             dtg_Visualizzazione = new DataGridView();
-            lbl_titolo = new Label();
             Piatto = new DataGridViewTextBoxColumn();
             Prezzo = new DataGridViewTextBoxColumn();
+            lbl_titolo = new Label();
+            btn_Ordina = new Button();
             ((System.ComponentModel.ISupportInitialize)dtg_Visualizzazione).BeginInit();
             SuspendLayout();
             // 
             // dtg_Visualizzazione
             // 
+            dtg_Visualizzazione.AllowUserToAddRows = false;
+            dtg_Visualizzazione.AllowUserToDeleteRows = false;
+            dtg_Visualizzazione.AllowUserToResizeColumns = false;
+            dtg_Visualizzazione.AllowUserToResizeRows = false;
             dtg_Visualizzazione.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             dtg_Visualizzazione.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dtg_Visualizzazione.Columns.AddRange(new DataGridViewColumn[] { Piatto, Prezzo });
@@ -50,11 +55,27 @@
             dataGridViewCellStyle1.WrapMode = DataGridViewTriState.False;
             dtg_Visualizzazione.DefaultCellStyle = dataGridViewCellStyle1;
             dtg_Visualizzazione.Location = new Point(12, 62);
+            dtg_Visualizzazione.MultiSelect = false;
             dtg_Visualizzazione.Name = "dtg_Visualizzazione";
+            dtg_Visualizzazione.ReadOnly = true;
             dtg_Visualizzazione.RowHeadersVisible = false;
             dtg_Visualizzazione.RowTemplate.Height = 25;
             dtg_Visualizzazione.Size = new Size(776, 376);
             dtg_Visualizzazione.TabIndex = 0;
+            // 
+            // Piatto
+            // 
+            Piatto.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            Piatto.HeaderText = "Piatto";
+            Piatto.Name = "Piatto";
+            Piatto.ReadOnly = true;
+            Piatto.Width = 63;
+            // 
+            // Prezzo
+            // 
+            Prezzo.HeaderText = "Prezzo";
+            Prezzo.Name = "Prezzo";
+            Prezzo.ReadOnly = true;
             // 
             // lbl_titolo
             // 
@@ -67,23 +88,23 @@
             lbl_titolo.Text = "Trattoria da Marco T.";
             lbl_titolo.TextAlign = ContentAlignment.MiddleCenter;
             // 
-            // Piatto
+            // btn_Ordina
             // 
-            Piatto.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-            Piatto.HeaderText = "Piatto";
-            Piatto.Name = "Piatto";
-            Piatto.Width = 63;
-            // 
-            // Prezzo
-            // 
-            Prezzo.HeaderText = "Prezzo";
-            Prezzo.Name = "Prezzo";
+            btn_Ordina.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point);
+            btn_Ordina.Location = new Point(660, 12);
+            btn_Ordina.Name = "btn_Ordina";
+            btn_Ordina.Size = new Size(128, 36);
+            btn_Ordina.TabIndex = 2;
+            btn_Ordina.Text = "Ordina";
+            btn_Ordina.UseVisualStyleBackColor = true;
+            btn_Ordina.Click += btn_Ordina_Click;
             // 
             // Ristorante
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(btn_Ordina);
             Controls.Add(lbl_titolo);
             Controls.Add(dtg_Visualizzazione);
             Name = "Ristorante";
@@ -98,5 +119,6 @@
         private Label lbl_titolo;
         private DataGridViewTextBoxColumn Piatto;
         private DataGridViewTextBoxColumn Prezzo;
+        private Button btn_Ordina;
     }
 }
