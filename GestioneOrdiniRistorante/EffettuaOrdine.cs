@@ -29,12 +29,15 @@ namespace GestioneOrdiniRistorante
 
         private void btn_Aggiungi_Click(object sender, EventArgs e)
         {
-            Piatto? p = menu.ContienePiatto(txt_NomePiattoDaInserire.Text);
-            if (p != null)
+            if (nmr_quantita.Value <= 0) //in realtà il numericupanddown evita il problema, ma se il Min non fosse impostato a 1, servirebbe
+                throw new QuantitaNonValidaException();
+
+            try
             {
+                Piatto p = menu.ContienePiatto(txt_NomePiattoDaInserire.Text);
                 ordine.AggiungiPiattoOrdinato(p, (int)nmr_quantita.Value);
             }
-            else
+            catch (PiattoNonTrovatoException)
             {
                 MessageBox.Show("Nome piatto invalido");
             }
@@ -87,8 +90,8 @@ namespace GestioneOrdiniRistorante
             if (totale > SOGLIA)
             {
                 totale *= 0.95f;
+                riepilogo += $"\nScontato del 5% a {totale} €";
             }
-            riepilogo += $"\nScontato del 5% a {totale} €";
             
             if (ordine.PiattiOrdinati.Count > 0)
             {

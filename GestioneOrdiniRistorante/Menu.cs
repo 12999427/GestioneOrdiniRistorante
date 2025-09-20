@@ -24,14 +24,14 @@ namespace GestioneOrdiniRistorante
             CaricaCSV(path);
         }
 
-        public Piatto? ContienePiatto (string Nome)
+        public Piatto ContienePiatto (string Nome)
         {
             foreach (Piatto p in ListaMenu)
             {
                 if (p.Nome == Nome)
                     return p;
             }
-            return null;
+            throw new PiattoNonTrovatoException();
         }
 
         public void CaricaCSV (string path) //puo lanciare eccezioni

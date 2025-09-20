@@ -28,7 +28,46 @@ namespace GestioneOrdiniRistorante
                 return;
             }
 
+            try { CaricaOrdiniCSV(OrdiniPath) }
+            catch
+            {
+                MessageBox.Show("File Ordini scorretto");
+                Environment.Exit(1); //chiude il programma
+                return;
+            }
+
             VisualizzaMenu(menu);
+        }
+
+        private void CaricaOrdiniCSV (string path)
+        {
+            Ordini = new();
+            if (!File.Exists(path))
+            {
+                MessageBox.Show("non c'è");
+                throw new Exception();
+
+            }
+
+            using (StreamReader sr = new StreamReader(path))
+            {
+                string[] header = sr.ReadLine().Split(";");
+                if (header[0] != "Cliente" || header[1] != "Piatto" || header[0] != "Quantita" || header[1] != "PrezzoTotale")
+                    throw new Exception("File menu scorretto");
+
+                while (sr.Peek() != -1)
+                {
+                    string[] riga = sr.ReadLine().Split(";");
+                    if (OttieniOrdine(riga[0]) == null)
+                    {
+                        Ordini.Add(new Ordine(riga[0], new Dictionary<Piatto, int>(riga[2], menu.ContienePiatto(riga[1])));
+                    }
+                    else
+                    {
+                        OttieniOrdine(riga[0]).AggiungiPiattoOrdinato(menu.ContienePiatto(riga[1])), riga[2]);
+                    }
+                }
+            }
         }
 
         private void VisualizzaMenu(Menu m)
@@ -79,7 +118,7 @@ namespace GestioneOrdiniRistorante
                     foreach (KeyValuePair<Piatto, int> voce in ordine.PiattiOrdinati)
                     {
                         sw.WriteLine($"{ordine.IDcliente};{voce.Key.Nome};{voce.Value};{ordine.CalcolaTotale().Item2}");
-                        MessageBox.Show($"{ordine.IDcliente};{voce.Key.Nome};{voce.Value};{ordine.CalcolaTotale().Item2}");
+                        //MessageBox.Show($"{ordine.IDcliente};{voce.Key.Nome};{voce.Value};{ordine.CalcolaTotale().Item2}");
                     }
                 }
             }

@@ -17,7 +17,7 @@ namespace GestioneOrdiniRistorante
                 throw new Exception("Nome invalido");
 
             if (prezzo <= 0)
-                throw new QuantitaNonValidaException();
+                throw new Exception();
 
             Nome = nome;
             Prezzo = prezzo;
