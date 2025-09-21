@@ -28,7 +28,7 @@ namespace GestioneOrdiniRistorante
                 return;
             }
 
-            try { CaricaOrdiniCSV(OrdiniPath) }
+            try { CaricaOrdiniCSV(OrdiniPath); }
             catch
             {
                 MessageBox.Show("File Ordini scorretto");
@@ -52,20 +52,27 @@ namespace GestioneOrdiniRistorante
             using (StreamReader sr = new StreamReader(path))
             {
                 string[] header = sr.ReadLine().Split(";");
-                if (header[0] != "Cliente" || header[1] != "Piatto" || header[0] != "Quantita" || header[1] != "PrezzoTotale")
-                    throw new Exception("File menu scorretto");
+                if (header[0] != "Cliente" || header[1] != "Piatto" || header[2] != "Quantita" || header[3] != "PrezzoTotale")
+                    throw new Exception("File ordini scorretto");
 
-                while (sr.Peek() != -1)
+                try
                 {
-                    string[] riga = sr.ReadLine().Split(";");
-                    if (OttieniOrdine(riga[0]) == null)
+                    while (sr.Peek() != -1)
                     {
-                        Ordini.Add(new Ordine(riga[0], new Dictionary<Piatto, int>(riga[2], menu.ContienePiatto(riga[1])));
+                        string[] riga = sr.ReadLine().Split(";");
+                        if (OttieniOrdine(riga[0]) == null)
+                        {
+                            Ordini.Add(new Ordine(riga[0], new Dictionary<Piatto, int> { { menu.ContienePiatto(riga[1]), int.Parse(riga[2]) } }));
+                        }
+                        else
+                        {
+                            OttieniOrdine(riga[0]).AggiungiPiattoOrdinato(menu.ContienePiatto(riga[1]), int.Parse(riga[2]));
+                        }
                     }
-                    else
-                    {
-                        OttieniOrdine(riga[0]).AggiungiPiattoOrdinato(menu.ContienePiatto(riga[1])), riga[2]);
-                    }
+                }
+                catch
+                {
+                    throw new Exception("File ordini scorretto");
                 }
             }
         }
@@ -117,7 +124,7 @@ namespace GestioneOrdiniRistorante
                 {
                     foreach (KeyValuePair<Piatto, int> voce in ordine.PiattiOrdinati)
                     {
-                        sw.WriteLine($"{ordine.IDcliente};{voce.Key.Nome};{voce.Value};{ordine.CalcolaTotale().Item2}");
+                        sw.WriteLine($"{ordine.IDcliente};{voce.Key.Nome};{voce.Value};{voce.Key.Prezzo * voce.Value/*ordine.CalcolaTotale().Item2*/}");
                         //MessageBox.Show($"{ordine.IDcliente};{voce.Key.Nome};{voce.Value};{ordine.CalcolaTotale().Item2}");
                     }
                 }
