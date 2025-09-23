@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,7 +17,7 @@ namespace GestioneOrdiniRistorante
         private string OrdiniPath = @"../../../../ordini.csv";
         public Menu menu { get; private set; }
         private List<Ordine> Ordini = new();
-        private bool EffettuaOrdineAttivo = false;
+        public bool EffettuaOrdineAttivo { set; private get; } = false;
         public Ristorante()
         {
             InitializeComponent();
@@ -114,18 +115,21 @@ namespace GestioneOrdiniRistorante
             }
         }
 
-        public void OrdineCompletato (Ordine ordine)
+        public void ScritiTuttiOrdini ()
         {
-            Ordini.Add(ordine);
-            EffettuaOrdineAttivo = false;
             try
             {
+                File.WriteAllText(OrdiniPath, "");
                 using (StreamWriter sw = new(OrdiniPath, true))
                 {
-                    foreach (KeyValuePair<Piatto, int> voce in ordine.PiattiOrdinati)
+                    foreach (Ordine ordine in Ordini)
                     {
-                        sw.WriteLine($"{ordine.IDcliente};{voce.Key.Nome};{voce.Value};{voce.Key.Prezzo * voce.Value/*ordine.CalcolaTotale().Item2*/}");
-                        //MessageBox.Show($"{ordine.IDcliente};{voce.Key.Nome};{voce.Value};{ordine.CalcolaTotale().Item2}");
+                        foreach (KeyValuePair<Piatto, int> voce in ordine.PiattiOrdinati)
+                        {
+                            sw.WriteLine($"{ordine.IDcliente};{voce.Key.Nome};{voce.Value};{voce.Key.Prezzo * voce.Value}");
+                            //MessageBox.Show($"{ordine.IDcliente};{voce.Key.Nome};{voce.Value};{ordine.CalcolaTotale().Item2}");
+                        }
+
                     }
                 }
             }
@@ -133,6 +137,28 @@ namespace GestioneOrdiniRistorante
             {
                 MessageBox.Show("Errore nello scrivere il file: " + ex.Message);
             }
+        }
+
+        public void OrdineCompletato (Ordine ordine)
+        {
+            Ordini.Add(ordine);
+            EffettuaOrdineAttivo = false;
+            /*
+            try
+            {
+                using (StreamWriter sw = new(OrdiniPath, true))
+                {
+                    foreach (KeyValuePair<Piatto, int> voce in ordine.PiattiOrdinati)
+                    {
+                        sw.WriteLine($"{ordine.IDcliente};{voce.Key.Nome};{voce.Value};{voce.Key.Prezzo * voce.Value}");
+                        //MessageBox.Show($"{ordine.IDcliente};{voce.Key.Nome};{voce.Value};{ordine.CalcolaTotale().Item2}");
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Errore nello scrivere il file: " + ex.Message);
+            }*/
             
         }
     }

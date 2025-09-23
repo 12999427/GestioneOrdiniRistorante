@@ -25,17 +25,25 @@ namespace GestioneOrdiniRistorante
             if (String.IsNullOrWhiteSpace(txt_nome.Text))
             {
                 MessageBox.Show("Inserisci nome valido");
+                return;
             }
-            else if (ristorante.OttieniOrdine(txt_nome.Text) == null)
+            else if (ristorante.OttieniOrdine(txt_nome.Text) != null)
             {
-                IDcliente = txt_nome.Text;
-                DialogResult = DialogResult.OK;
-                Close();
+                DialogResult result = MessageBox.Show(
+                    "Vuoi aggiungere nuovi ordini al cliente già esistente?\n",
+                    "Conferma",
+                    MessageBoxButtons.OKCancel,
+                    MessageBoxIcon.Question
+                );
+                if (result != DialogResult.OK)
+                {
+                    Close();
+                }
             }
-            else
-            {
-                MessageBox.Show("Nome cliente già usato");
-            }
+
+            IDcliente = txt_nome.Text;
+            DialogResult = DialogResult.OK;
+            Close();
         }
     }
 }

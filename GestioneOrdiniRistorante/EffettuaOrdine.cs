@@ -23,7 +23,7 @@ namespace GestioneOrdiniRistorante
             ristorante = r;
             DGV = ristorante.dtg_Visualizzazione;
             menu = r.menu;
-            ordine = new(id);
+            ordine = (r.OttieniOrdine(id) ?? new(id));
             AggiornaUI();
         }
 
@@ -53,8 +53,8 @@ namespace GestioneOrdiniRistorante
                 dtg_Visualizzazione.Rows.Add(voce.Key.Nome, voce.Key.Prezzo + " €", voce.Value);
                 totale += voce.Value * voce.Key.Prezzo;
             }
-            
-            lbl_PrezzoTot.Text = $"Prezzo totale: {totale} € {(totale>SOGLIA ? $"-5% => {totale*0.98}" : "")}";
+
+            lbl_PrezzoTot.Text = $"Prezzo totale: {totale} € {(totale > SOGLIA ? $"-5% => {totale * 0.98}" : "")}";
         }
 
         private void btn_Seleziona_Click(object sender, EventArgs e)
@@ -92,7 +92,7 @@ namespace GestioneOrdiniRistorante
                 totale *= 0.95f;
                 riepilogo += $"\nScontato del 5% a {totale} €";
             }
-            
+
             if (ordine.PiattiOrdinati.Count > 0)
             {
                 DialogResult result = MessageBox.Show(
@@ -112,6 +112,11 @@ namespace GestioneOrdiniRistorante
             {
                 MessageBox.Show("Non hai ordinato niente");
             }
+        }
+
+        private void EffettuaOrdine_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            ristorante.EffettuaOrdineAttivo = false;
         }
     }
 }

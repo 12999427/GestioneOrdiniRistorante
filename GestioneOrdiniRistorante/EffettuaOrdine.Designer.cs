@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
             btn_Aggiungi = new Button();
             btn_Reset = new Button();
             lbl_PrezzoTot = new Label();
@@ -108,14 +108,14 @@
             dtg_Visualizzazione.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             dtg_Visualizzazione.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dtg_Visualizzazione.Columns.AddRange(new DataGridViewColumn[] { Piatto, Prezzo, Quantita });
-            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle2.BackColor = SystemColors.Window;
-            dataGridViewCellStyle2.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
-            dataGridViewCellStyle2.ForeColor = SystemColors.ControlText;
-            dataGridViewCellStyle2.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.False;
-            dtg_Visualizzazione.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle1.BackColor = SystemColors.Window;
+            dataGridViewCellStyle1.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
+            dataGridViewCellStyle1.ForeColor = SystemColors.ControlText;
+            dataGridViewCellStyle1.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.False;
+            dtg_Visualizzazione.DefaultCellStyle = dataGridViewCellStyle1;
             dtg_Visualizzazione.Location = new Point(12, 70);
             dtg_Visualizzazione.MultiSelect = false;
             dtg_Visualizzazione.Name = "dtg_Visualizzazione";
@@ -170,6 +170,7 @@
             Controls.Add(btn_Aggiungi);
             Name = "EffettuaOrdine";
             Text = "EffettuaOrdine";
+            FormClosing += EffettuaOrdine_FormClosing;
             ((System.ComponentModel.ISupportInitialize)dtg_Visualizzazione).EndInit();
             ((System.ComponentModel.ISupportInitialize)nmr_quantita).EndInit();
             ResumeLayout(false);
