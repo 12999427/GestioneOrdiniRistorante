@@ -28,16 +28,20 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DataGridViewCellStyle dataGridViewCellStyle6 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
             btn_Aggiungi = new Button();
             btn_Reset = new Button();
-            dtg_Visualizzazione = new DataGridView();
-            Piatto = new DataGridViewTextBoxColumn();
-            Prezzo = new DataGridViewTextBoxColumn();
             lbl_PrezzoTot = new Label();
             btn_Seleziona = new Button();
             txt_NomePiattoDaInserire = new TextBox();
+            btn_Conferma = new Button();
+            dtg_Visualizzazione = new DataGridView();
+            Piatto = new DataGridViewTextBoxColumn();
+            Prezzo = new DataGridViewTextBoxColumn();
+            Quantita = new DataGridViewTextBoxColumn();
+            nmr_quantita = new NumericUpDown();
             ((System.ComponentModel.ISupportInitialize)dtg_Visualizzazione).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)nmr_quantita).BeginInit();
             SuspendLayout();
             // 
             // btn_Aggiungi
@@ -60,38 +64,6 @@
             btn_Reset.UseVisualStyleBackColor = true;
             btn_Reset.Click += btn_Reset_Click;
             // 
-            // dtg_Visualizzazione
-            // 
-            dtg_Visualizzazione.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            dtg_Visualizzazione.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dtg_Visualizzazione.Columns.AddRange(new DataGridViewColumn[] { Piatto, Prezzo });
-            dataGridViewCellStyle6.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle6.BackColor = SystemColors.Window;
-            dataGridViewCellStyle6.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
-            dataGridViewCellStyle6.ForeColor = SystemColors.ControlText;
-            dataGridViewCellStyle6.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle6.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle6.WrapMode = DataGridViewTriState.False;
-            dtg_Visualizzazione.DefaultCellStyle = dataGridViewCellStyle6;
-            dtg_Visualizzazione.Location = new Point(12, 75);
-            dtg_Visualizzazione.Name = "dtg_Visualizzazione";
-            dtg_Visualizzazione.RowHeadersVisible = false;
-            dtg_Visualizzazione.RowTemplate.Height = 25;
-            dtg_Visualizzazione.Size = new Size(439, 375);
-            dtg_Visualizzazione.TabIndex = 2;
-            // 
-            // Piatto
-            // 
-            Piatto.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-            Piatto.HeaderText = "Piatto";
-            Piatto.Name = "Piatto";
-            Piatto.Width = 63;
-            // 
-            // Prezzo
-            // 
-            Prezzo.HeaderText = "Prezzo";
-            Prezzo.Name = "Prezzo";
-            // 
             // lbl_PrezzoTot
             // 
             lbl_PrezzoTot.Location = new Point(229, 41);
@@ -112,25 +84,94 @@
             // 
             // txt_NomePiattoDaInserire
             // 
-            txt_NomePiattoDaInserire.Location = new Point(229, 12);
+            txt_NomePiattoDaInserire.Location = new Point(263, 12);
             txt_NomePiattoDaInserire.Name = "txt_NomePiattoDaInserire";
-            txt_NomePiattoDaInserire.Size = new Size(222, 23);
+            txt_NomePiattoDaInserire.Size = new Size(188, 23);
             txt_NomePiattoDaInserire.TabIndex = 5;
+            // 
+            // btn_Conferma
+            // 
+            btn_Conferma.Location = new Point(182, 11);
+            btn_Conferma.Name = "btn_Conferma";
+            btn_Conferma.Size = new Size(75, 23);
+            btn_Conferma.TabIndex = 6;
+            btn_Conferma.Text = "Conferma";
+            btn_Conferma.UseVisualStyleBackColor = true;
+            btn_Conferma.Click += btn_Conferma_Click;
+            // 
+            // dtg_Visualizzazione
+            // 
+            dtg_Visualizzazione.AllowUserToAddRows = false;
+            dtg_Visualizzazione.AllowUserToDeleteRows = false;
+            dtg_Visualizzazione.AllowUserToResizeColumns = false;
+            dtg_Visualizzazione.AllowUserToResizeRows = false;
+            dtg_Visualizzazione.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            dtg_Visualizzazione.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dtg_Visualizzazione.Columns.AddRange(new DataGridViewColumn[] { Piatto, Prezzo, Quantita });
+            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle2.BackColor = SystemColors.Window;
+            dataGridViewCellStyle2.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
+            dataGridViewCellStyle2.ForeColor = SystemColors.ControlText;
+            dataGridViewCellStyle2.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.False;
+            dtg_Visualizzazione.DefaultCellStyle = dataGridViewCellStyle2;
+            dtg_Visualizzazione.Location = new Point(12, 70);
+            dtg_Visualizzazione.MultiSelect = false;
+            dtg_Visualizzazione.Name = "dtg_Visualizzazione";
+            dtg_Visualizzazione.ReadOnly = true;
+            dtg_Visualizzazione.RowHeadersVisible = false;
+            dtg_Visualizzazione.RowTemplate.Height = 25;
+            dtg_Visualizzazione.Size = new Size(478, 399);
+            dtg_Visualizzazione.TabIndex = 7;
+            // 
+            // Piatto
+            // 
+            Piatto.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            Piatto.HeaderText = "Piatto";
+            Piatto.Name = "Piatto";
+            Piatto.ReadOnly = true;
+            Piatto.Width = 63;
+            // 
+            // Prezzo
+            // 
+            Prezzo.HeaderText = "Prezzo";
+            Prezzo.Name = "Prezzo";
+            Prezzo.ReadOnly = true;
+            // 
+            // Quantita
+            // 
+            Quantita.HeaderText = "Quantita";
+            Quantita.Name = "Quantita";
+            Quantita.ReadOnly = true;
+            // 
+            // nmr_quantita
+            // 
+            nmr_quantita.Location = new Point(457, 14);
+            nmr_quantita.Maximum = new decimal(new int[] { 20, 0, 0, 0 });
+            nmr_quantita.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
+            nmr_quantita.Name = "nmr_quantita";
+            nmr_quantita.Size = new Size(31, 23);
+            nmr_quantita.TabIndex = 8;
+            nmr_quantita.Value = new decimal(new int[] { 1, 0, 0, 0 });
             // 
             // EffettuaOrdine
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(463, 462);
+            ClientSize = new Size(502, 481);
+            Controls.Add(nmr_quantita);
+            Controls.Add(dtg_Visualizzazione);
             Controls.Add(txt_NomePiattoDaInserire);
             Controls.Add(btn_Seleziona);
+            Controls.Add(btn_Conferma);
             Controls.Add(lbl_PrezzoTot);
-            Controls.Add(dtg_Visualizzazione);
             Controls.Add(btn_Reset);
             Controls.Add(btn_Aggiungi);
             Name = "EffettuaOrdine";
             Text = "EffettuaOrdine";
             ((System.ComponentModel.ISupportInitialize)dtg_Visualizzazione).EndInit();
+            ((System.ComponentModel.ISupportInitialize)nmr_quantita).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -139,11 +180,14 @@
 
         private Button btn_Aggiungi;
         private Button btn_Reset;
-        private DataGridView dtg_Visualizzazione;
-        private DataGridViewTextBoxColumn Piatto;
-        private DataGridViewTextBoxColumn Prezzo;
         private Label lbl_PrezzoTot;
         private Button btn_Seleziona;
         private TextBox txt_NomePiattoDaInserire;
+        private Button btn_Conferma;
+        public DataGridView dtg_Visualizzazione;
+        private DataGridViewTextBoxColumn Piatto;
+        private DataGridViewTextBoxColumn Prezzo;
+        private DataGridViewTextBoxColumn Quantita;
+        private NumericUpDown nmr_quantita;
     }
 }
