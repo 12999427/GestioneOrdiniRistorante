@@ -109,7 +109,7 @@ namespace GestioneOrdiniRistorante
                 if (cno.ShowDialog() == DialogResult.OK)
                 {
                    EffettuaOrdine eo = new(this, cno.IDcliente);
-                    EffettuaOrdineAttivo = true;
+                   EffettuaOrdineAttivo = true;
                    eo.Show();
                 }
             }
@@ -119,7 +119,7 @@ namespace GestioneOrdiniRistorante
         {
             try
             {
-                File.WriteAllText(OrdiniPath, "");
+                File.WriteAllText(OrdiniPath, "Cliente;Piatto;Quantita;PrezzoTotale\n");
                 using (StreamWriter sw = new(OrdiniPath, true))
                 {
                     foreach (Ordine ordine in Ordini)
@@ -141,8 +141,13 @@ namespace GestioneOrdiniRistorante
 
         public void OrdineCompletato (Ordine ordine)
         {
+            Ordine? o = OttieniOrdine(ordine.IDcliente);
+            if (o != null)
+                Ordini.Remove(o);
+
             Ordini.Add(ordine);
             EffettuaOrdineAttivo = false;
+            ScritiTuttiOrdini();
             /*
             try
             {
@@ -159,7 +164,7 @@ namespace GestioneOrdiniRistorante
             {
                 MessageBox.Show("Errore nello scrivere il file: " + ex.Message);
             }*/
-            
+
         }
     }
 }
