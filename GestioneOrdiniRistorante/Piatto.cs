@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace GestioneOrdiniRistorante
 {
-    internal class Piatto
+    public class Piatto
     {
         public string Nome { get; private set; }
         public float Prezzo { get; private set; }
