@@ -68,7 +68,7 @@
             // 
             lbl_PrezzoTot.Location = new Point(229, 41);
             lbl_PrezzoTot.Name = "lbl_PrezzoTot";
-            lbl_PrezzoTot.Size = new Size(200, 23);
+            lbl_PrezzoTot.Size = new Size(261, 23);
             lbl_PrezzoTot.TabIndex = 3;
             lbl_PrezzoTot.Text = "Prezzo Totale: 1";
             // 

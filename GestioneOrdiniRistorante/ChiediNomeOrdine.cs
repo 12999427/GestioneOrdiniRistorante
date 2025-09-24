@@ -38,6 +38,7 @@ namespace GestioneOrdiniRistorante
                 if (result != DialogResult.OK)
                 {
                     Close();
+                    return;
                 }
             }
 
